@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- Theme Name: Platinum Crystal (Titanium V.Max V2 - Clean Result Edition) -->
-    <title>🌟 التحدي الأكبر: الماضي البسيط والمستمر 🚀</title>
+    <title>🌟 التحدي الأكبر 🚀</title>
 
-    <meta property="og:title" content="🌟 التحدي الأكبر: الماضي البسيط والمستمر 🚀">
-    <meta property="og:description" content="تحدي استثنائي مصمم لقياس تركيزك الحقيقي في قواعد الزمن الماضي. هل تقبل التحدي؟">
+    <meta property="og:title" content="🌟 التحدي الأكبر 🚀">
+    <meta property="og:description" content="تحدي استثنائي مصمم لقياس تركيزك الحقيقي وقوة ملاحظتك تحت الضغط. هل تقبل التحدي؟">
     <meta property="og:image" content="https://dummyimage.com/1200x630/F8FAFC/0EA5E9.png&text=Elite+Challenge">
     
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -111,8 +111,8 @@
 
         .station-card { background: #FFFFFF; padding: 40px 30px; border-radius: 20px; margin-bottom: 35px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 15px 35px rgba(0,0,0,0.03); }
         .question-text { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; direction: ltr; width: 100%; }
-        /* ENCAPSULATION FIX */
-        .question-text-wrapper { flex: 1; font-family: 'Outfit'; font-size: var(--q-font-size); font-weight: 800; line-height: 1.7; transition: 0.3s; width: 100%; }
+        /* ENCAPSULATION FIX (RULE 7) */
+        .question-text-wrapper { flex: 1; font-family: 'Outfit'; font-size: var(--q-font-size); font-weight: 800; line-height: 1.7; transition: 0.3s; width: 100%; display: block; text-align: left;}
         
         .options-list { display: flex; flex-direction: column; gap: 18px; direction: ltr; }
         .option-item { background: #F8FAFC; border: 1px solid #E2E8F0; border-left: 5px solid #94A3B8; border-radius: 14px; padding: 20px 24px; cursor: pointer; display: flex; align-items: center; gap: 20px; transition: 0.2s; }
@@ -212,11 +212,10 @@
 
             /* MODE 2: Teacher Notes / Smart Notes */
             body.print-notes-mode #print-title-out::after { content: " (Model Answer & Notes)"; font-size: 16px; color: #555; display: block; margin-top: 5px; text-transform: none;}
-            /* ❌ إظهار كافة الأسئلة والخيارات في هذا الوضع وليس فقط الأخطاء ❌ */
             body.print-notes-mode .print-opt-item.is-correct-opt { display: flex !important; background: #f0fdf4 !important; border: 1px solid #16a34a !important; padding: 10px; border-radius: 8px; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
             body.print-notes-mode .print-opt-item.is-correct-opt .print-opt-letter { background: #16a34a !important; color: #fff !important; border-color: #16a34a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
             body.print-notes-mode .print-rule-box { display: block !important; background: #f8fafc !important; border: 1px dashed #64748b !important; padding: 12px !important; border-radius: 8px !important; margin-top: 12px !important; font-family: 'Cairo'; font-size: 15px; font-weight: 700; direction: rtl; text-align: right; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
-            body.print-notes-mode .omr-container { display: none !important; } /* لا نحتاج البابل شيت في نسخة المعلم */
+            body.print-notes-mode .omr-container { display: none !important; } 
 
             /* OMR */
             .omr-container { display: none; page-break-before: always; padding: 10mm 15mm; font-family: 'Outfit'; }
@@ -248,6 +247,7 @@
             .avatar-grid { gap: 10px; padding: 15px 5px 25px 5px; }
             .avatar-option { font-size: 26px; padding: 10px 14px; }
             
+            /* MOBILE THUMB-REACH (RULE 3) */
             .action-btns { flex-direction: column; gap: 14px; margin-top: 35px;}
             .btn { width: 100%; font-size: 16px; padding: 18px; }
             
@@ -301,7 +301,7 @@
             <tr>
                 <td>
                     <div class="exam-title-box">
-                        <h2 id="print-title-out">UNIT 1: PAST SIMPLE & CONTINUOUS (47 QS)</h2>
+                        <h2 id="print-title-out">ELITE CHALLENGE - CODE: PSC</h2>
                         <div class="student-info-row">
                             <div class="info-field name-field"><span class="info-label">Student Name:</span><div class="info-line" id="print-doc-student"></div></div>
                             <div class="info-field score-field"><span class="info-label">Score:</span><div class="info-line" id="print-score-out">/ 47</div></div>
@@ -370,7 +370,7 @@
         <div id="start-screen">
             <div class="welcome-card">
                 <h3>🌟 خطوتك نحو القمة تبدأ هنا!</h3>
-                <p>تحدي استثنائي لقياس تركيزك الحقيقي في قواعد الماضي البسيط والمستمر. اقرأ التفاصيل بدقة واستعد لإثبات جدارتك.<br><br>هل تقبل التحدي وتستطيع الوصول للقمة؟</p>
+                <p>تحدي استثنائي لقياس تركيزك الحقيقي وقوة ملاحظتك تحت الضغط. اقرأ التفاصيل بدقة واستعد لإثبات جدارتك.<br><br>هل تقبل التحدي وتستطيع الوصول للقمة؟</p>
             </div>
             
             <h4 style="color: var(--text-main); font-weight: 800; margin-bottom: 15px; text-align: center;">اختار مستوى التحدي الزمني:</h4>
@@ -452,7 +452,8 @@
 
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxps3pkSIfSFL8rwhCNMlNCEYkeL2ooxYo_6WgWRXHHL0hcY0owu-x0qRtZei0migOyxg/exec";
-const EXAM_TITLE = "UNIT 1: PAST SIMPLE & CONTINUOUS (47 QS)";
+const EXAM_TITLE = "ELITE CHALLENGE - CODE: PSC";
+const EXAM_SCORE_TEXT = "/ 47";
 
 function tryVibrate(pattern) { if (navigator.vibrate) try { navigator.vibrate(pattern); } catch(e){} }
 
@@ -465,7 +466,15 @@ window.addEventListener('beforeunload', function (e) {
 });
 
 /* 🖨️ Print Master Engine Direct Modes */
+function preparePrintData() {
+    const titleOut = document.getElementById("print-title-out");
+    const scoreOut = document.getElementById("print-score-out");
+    if(titleOut) titleOut.innerText = EXAM_TITLE;
+    if(scoreOut) scoreOut.innerText = EXAM_SCORE_TEXT;
+}
+
 function printBlankExam() {
+    preparePrintData();
     document.body.classList.remove('print-notes-mode');
     document.body.classList.add('print-blank-mode');
     document.body.classList.add('omr-active'); // Force OMR to show in Blank mode
@@ -475,6 +484,7 @@ function printBlankExam() {
 }
 
 function printSmartNotes() {
+    preparePrintData();
     document.body.classList.remove('print-blank-mode');
     document.body.classList.remove('omr-active'); // Ensure OMR is hidden in Notes mode
     document.body.classList.add('print-notes-mode');
@@ -670,7 +680,10 @@ function initQuizData() {
 }
 
 function updateChromaShift() {
-    let levelIndex = Math.floor(currentQuestion / 12); 
+    // 🔥 DYNAMIC CHROMA SHIFTS (RULE 5) 🔥
+    let themesCount = 5;
+    let itemsPerTheme = Math.ceil(quizData.length / themesCount);
+    let levelIndex = Math.floor(currentQuestion / itemsPerTheme); 
     if(levelIndex > 4) levelIndex = 4;
     document.body.className = `theme-${levelIndex + 1}`;
 }
@@ -1022,7 +1035,7 @@ function calculateScore() {
             try {
                 let usedTime = isTimeAttack ? "Time Attack" : ( (quizData.length * 240) - totalSeconds) + "s";
                 let payload = new URLSearchParams({ 
-                    examName: "UNIT 1: PAST SIMPLE & CONTINUOUS (47 QS)", 
+                    examName: "ELITE CHALLENGE - CODE: PSC", 
                     studentName: studentName, 
                     score: `${score} / ${quizData.length}`, 
                     percentage: percent, 

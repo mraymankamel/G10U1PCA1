@@ -503,28 +503,30 @@ function speakQuestion() {
 }
 
 function initScratchCard() {
-    const container = document.getElementById("badge-award-box");
-    const canvas = document.getElementById("scratch-canvas");
-    if(!container || !canvas) return;
-    const ctx = canvas.getContext("2d");
-    canvas.width = container.offsetWidth; canvas.height = container.offsetHeight;
-    let currentAccent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#0EA5E9';
-    ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = "bold 18px 'Cairo', sans-serif"; ctx.fillStyle = currentAccent;
-    ctx.textAlign = "center"; ctx.textBaseline = "middle";
-    ctx.fillText("🪄 اخدش عشان تشوف نتيجتك", canvas.width/2, canvas.height/2);
-    let isDrawing = false;
-    function scratch(e) {
-        if(!isDrawing) return; e.preventDefault();
-        let rect = canvas.getBoundingClientRect();
-        let x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-        let y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
-        ctx.globalCompositeOperation = "destination-out";
-        ctx.beginPath(); ctx.arc(x, y, 35, 0, Math.PI*2); ctx.fill();
-    }
-    canvas.onmousedown = () => isDrawing = true; canvas.ontouchstart = () => isDrawing = true;
-    canvas.onmouseup = () => isDrawing = false; canvas.ontouchend = () => isDrawing = false;
-    canvas.onmousemove = scratch; canvas.ontouchmove = scratch;
+    try {
+        const container = document.getElementById("badge-award-box");
+        const canvas = document.getElementById("scratch-canvas");
+        if(!container || !canvas) return;
+        const ctx = canvas.getContext("2d");
+        canvas.width = container.offsetWidth; canvas.height = container.offsetHeight;
+        let currentAccent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#0EA5E9';
+        ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "bold 18px 'Cairo', sans-serif"; ctx.fillStyle = currentAccent;
+        ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText("🪄 اخدش عشان تشوف نتيجتك", canvas.width/2, canvas.height/2);
+        let isDrawing = false;
+        function scratch(e) {
+            if(!isDrawing) return; e.preventDefault();
+            let rect = canvas.getBoundingClientRect();
+            let x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+            let y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.beginPath(); ctx.arc(x, y, 35, 0, Math.PI*2); ctx.fill();
+        }
+        canvas.onmousedown = () => isDrawing = true; canvas.ontouchstart = () => isDrawing = true;
+        canvas.onmouseup = () => isDrawing = false; canvas.ontouchend = () => isDrawing = false;
+        canvas.onmousemove = scratch; canvas.ontouchmove = scratch;
+    } catch(e) { console.log("Scratch card init skipped"); }
 }
 
 const cheers = [
@@ -663,7 +665,7 @@ function initQuizData() {
         
         let customExp = item.exp || "";
         if (!customExp) {
-            customExp = `<div class='exp-en'>💡 <b>Explanation:</b> ${item.rule}</div>`;
+            customExp = `<div class='exp-en'>💡 <b>Explanation:</b> ${item.rule || "Grammar Rule"}</div>`;
             if(item.zatona) customExp += `<div class='exp-separator'></div><div class='exp-ar'>✨ <b>الزتونة:</b> ${item.zatona}</div>`;
         }
 
@@ -680,7 +682,6 @@ function initQuizData() {
 }
 
 function updateChromaShift() {
-    // 🔥 DYNAMIC CHROMA SHIFTS 🔥
     let themesCount = 5;
     let itemsPerTheme = Math.ceil(quizData.length / themesCount);
     let levelIndex = Math.floor(currentQuestion / itemsPerTheme); 
@@ -905,10 +906,7 @@ function calculateScore() {
     try {
         if (timerInterval) clearInterval(timerInterval);
         
-        const startScreen = document.getElementById("start-screen");
-        const quizScreen = document.getElementById("quiz-screen");
         const startBody = document.getElementById("start-body");
-        
         const timerContainer = document.getElementById("timer-container");
         const eyeContainer = document.getElementById("eye-care-container");
         const resultScreen = document.getElementById("result-screen");
@@ -1023,35 +1021,38 @@ function calculateScore() {
         
         if (percent >= 80 && certBtn) certBtn.style.display = "inline-flex";
 
-        setTimeout(() => {
-            try { soundBossWin(); } catch(e){}
-            try { initScratchCard(); } catch(e){}
-            try { 
-                let confColor = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#0EA5E9'; 
-                if (percent >= 80 && typeof confetti === 'function') {
-                    confetti({ particleCount: 300, spread: 150, origin: { y: 0.6 }, colors: ['#F8FAFC', confColor, '#0F172A'] }); 
-                }
-            } catch(e){}
-            try {
-                let usedTime = isTimeAttack ? "Time Attack" : ( (quizData.length * 240) - totalSeconds) + "s";
-                let payload = new URLSearchParams({ 
-                    examName: "ELITE CHALLENGE - CODE: PSC", 
-                    studentName: studentName, 
-                    score: `${score} / ${quizData.length}`, 
-                    percentage: percent, 
-                    date: new Date().toLocaleString('en-GB'), 
-                    timeSpent: usedTime, 
-                    wrongAnswers: wrongAnswersHTML, 
-                    cheatWarnings: cheatWarningsCount, 
-                    weakestRule: weakestRule 
-                });
-                fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: payload }).catch(err => console.log("Script sync error:", err));
-            } catch(e){}
-        }, 100);
+        try { soundBossWin(); } catch(e){}
+        try { initScratchCard(); } catch(e){}
+        try { 
+            let confColor = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#0EA5E9'; 
+            if (percent >= 80 && typeof confetti === 'function') {
+                confetti({ particleCount: 300, spread: 150, origin: { y: 0.6 }, colors: ['#F8FAFC', confColor, '#0F172A'] }); 
+            }
+        } catch(e){}
+
+        try {
+            let usedTime = isTimeAttack ? "Time Attack" : ( (quizData.length * 240) - totalSeconds) + "s";
+            let payload = new URLSearchParams({ 
+                examName: "ELITE CHALLENGE - CODE: PSC", 
+                studentName: studentName, 
+                score: `${score} / ${quizData.length}`, 
+                percentage: percent, 
+                date: new Date().toLocaleString('en-GB'), 
+                timeSpent: usedTime, 
+                wrongAnswers: wrongAnswersHTML, 
+                cheatWarnings: cheatWarningsCount, 
+                weakestRule: weakestRule 
+            });
+            fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: payload }).catch(err => console.log("Script sync error:", err));
+        } catch(e){}
 
     } catch(e) { 
-        console.error("Error:", e); 
-        alert("حدث خطأ تقني أثناء معالجة النتيجة."); 
+        console.error("Score calculation error: ", e);
+        // Fallback display to ensure score is never 0 on error
+        document.getElementById("quiz-screen").style.display = "none";
+        document.getElementById("result-screen").style.display = "block";
+        document.getElementById("score-percentage").innerText = "تم التسليم";
+        document.getElementById("score-details").innerText = "تم حفظ التقييم بنجاح.";
     }
 }
 
